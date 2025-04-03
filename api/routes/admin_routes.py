@@ -1,4 +1,3 @@
-# api/routes/admin_routes.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from api.auth import create_access_token, verify_token
@@ -6,7 +5,7 @@ from datetime import timedelta
 
 router = APIRouter()
 
-# Base de datos simulada de administradores (en un entorno real, usarías MongoDB)
+# Base de datos simulada de administradores (sin MongoDB)
 fake_admin_db = {
     "admin": {
         "username": "admin",

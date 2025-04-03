@@ -1,4 +1,3 @@
-# api/routes/voluntario_routes.py
 from fastapi import APIRouter, HTTPException, Depends, Header
 from pydantic import BaseModel
 from api.auth import verify_token
@@ -163,6 +162,7 @@ fake_voluntarios_db = {
     }
 }
 
+# Función para verificar el token
 def get_current_user(authorization: str = Header(...)):
     if not authorization:
         raise HTTPException(status_code=401, detail="Token no proporcionado")
@@ -174,10 +174,12 @@ def get_current_user(authorization: str = Header(...)):
     
     return verify_token(token)
 
+# Ruta para obtener la lista de voluntarios
 @router.get("/voluntarios", response_model=List[Voluntario])
 def get_voluntarios(token: str = Depends(get_current_user)):
     return list(fake_voluntarios_db.values())
 
+# Ruta para obtener un voluntario específico
 @router.get("/voluntarios/{voluntario_id}", response_model=Voluntario)
 def get_voluntario(voluntario_id: int, token: str = Depends(get_current_user)):
     voluntario = fake_voluntarios_db.get(voluntario_id)
