@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime, timedelta
 from typing import Optional
 
-SECRET_KEY = "mi_clave_secreta"
+SECRET_KEY = "clave_secreta"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Duración del token (en minutos)
 
