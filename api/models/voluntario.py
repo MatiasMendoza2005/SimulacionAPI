@@ -10,6 +10,10 @@ class Voluntario(BaseModel):
     fecha_nacimiento: date
     genero: str
     tipo_sangre: str  # Tipo de sangre, por ejemplo: 'A+', 'O-', etc.
+    telefono: str  # Número de teléfono
+    ubicacion: str  # Ubicación
+    ci: str  # Número de CI
+    estado: str  # Estado: Activo o Inactivo
     
     # Respuestas del test psicológico
     respuestas_test_psicologico: Dict[str, int]  # Respuestas del test psicológico
@@ -19,3 +23,4 @@ class Voluntario(BaseModel):
     
     fecha_ultimo_test: date  # Fecha de la última evaluación
     fecha_proximo_test: date  # Fecha de la próxima evaluación
+

@@ -15,7 +15,7 @@ fake_admin_db = {
 
 # Función para verificar si la contraseña es correcta
 def verify_password(plain_password, stored_password):
-    return plain_password == stored_password
+    return plain_password == stored_password    
 
 # Pydantic modelo para el login
 class LoginRequest(BaseModel):

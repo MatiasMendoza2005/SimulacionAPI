@@ -14,9 +14,13 @@ fake_voluntarios_db = {
         "id": 1,
         "nombre": "Juan",
         "apellido": "Pérez",
-        "fecha_nacimiento": "1990-01-01",
+        "fecha_nacimiento": "1990-01-05",
         "genero": "Masculino",
         "tipo_sangre": "O+",
+        "telefono": "+591 76291234",  # Número de teléfono
+        "ubicacion": "Av. Banzer, 8vo Anillo",  # Ubicación
+        "ci": "97841123",  # Número de CI
+        "estado": "Activo",  # Estado: Activo o Inactivo
         "respuestas_test_psicologico": {
             "pensamientos_no_deseados": 3,
             "hacer_algo_diferente": 2,
@@ -47,6 +51,10 @@ fake_voluntarios_db = {
         "fecha_nacimiento": "1985-04-23",
         "genero": "Femenino",
         "tipo_sangre": "A-",
+        "telefono": "+591 65498127",
+        "ubicacion": "Av. Irala, Santa Cruz",
+        "ci": "65498127",
+        "estado": "Inactivo",  # Estado: Activo o Inactivo
         "respuestas_test_psicologico": {
             "pensamientos_no_deseados": 4,
             "hacer_algo_diferente": 3,
@@ -77,6 +85,10 @@ fake_voluntarios_db = {
         "fecha_nacimiento": "1992-08-12",
         "genero": "Masculino",
         "tipo_sangre": "B+",
+        "telefono": "+591 81329764",
+        "ubicacion": "Av. Piraí, Santa Cruz",
+        "ci": "81329764",
+        "estado": "Activo",  # Estado: Activo o Inactivo
         "respuestas_test_psicologico": {
             "pensamientos_no_deseados": 2,
             "hacer_algo_diferente": 1,
@@ -107,6 +119,10 @@ fake_voluntarios_db = {
         "fecha_nacimiento": "1988-07-30",
         "genero": "Femenino",
         "tipo_sangre": "AB+",
+        "telefono": "+591 98765432",
+        "ubicacion": "Calle 10, Santa Cruz",
+        "ci": "98765432",
+        "estado": "Inactivo",  # Estado: Activo o Inactivo
         "respuestas_test_psicologico": {
             "pensamientos_no_deseados": 5,
             "hacer_algo_diferente": 4,
@@ -137,6 +153,10 @@ fake_voluntarios_db = {
         "fecha_nacimiento": "1994-05-18",
         "genero": "Masculino",
         "tipo_sangre": "O-",
+        "telefono": "+591 98712345",
+        "ubicacion": "Av. Busch, Santa Cruz",
+        "ci": "98712345",
+        "estado": "Activo",  # Estado: Activo o Inactivo
         "respuestas_test_psicologico": {
             "pensamientos_no_deseados": 3,
             "hacer_algo_diferente": 2,

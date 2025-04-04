@@ -3,9 +3,9 @@ import jwt
 from datetime import datetime, timedelta
 from typing import Optional
 
-SECRET_KEY = "clave_secreta"
+SECRET_KEY = "mi_super_clave_secreta_de_32_caracteres_123"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Duración del token (en minutos)
+ACCESS_TOKEN_EXPIRE_MINUTES = 120  # Duración del token (en minutos)
 
 # Función para generar el token JWT
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
