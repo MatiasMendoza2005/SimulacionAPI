@@ -9,7 +9,7 @@ router = APIRouter()
 fake_admin_db = {
     "admin": {
         "username": "admin",
-        "password": "admin",  # Contraseña en texto plano
+        "password": "admin",
     }
 }
 
@@ -36,10 +36,10 @@ def login(credentials: LoginRequest):
     return {"access_token": access_token, "token_type": "bearer"}
 
 # Ruta para verificar el token JWT (ejemplo de ruta protegida)
-@router.get("/protected")
-def protected_route(token: str):
-    user = verify_token(token)
-    if user is None:
-        raise HTTPException(status_code=401, detail="Token no válido")
-    
-    return {"message": "Acceso autorizado", "user": user}
+#@router.get("/protected")
+#def protected_route(token: str):
+#    user = verify_token(token)
+#    if user is None:
+#        raise HTTPException(status_code=401, detail="Token no válido")
+#    
+#    return {"message": "Acceso autorizado", "user": user}
