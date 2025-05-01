@@ -8,8 +8,8 @@ from api.auth import create_access_token, verify_token
 router = APIRouter()
 
 fake_usuarios_db = {
-    1: {"id": 1, "nombre": "Juan", "apellido": "Pérez", "email": "juan.perez@example.com", "contrasena": "admin123", "rolId": 1, "fechaRegistro": "2025-01-01"},
-    2: {"id": 2, "nombre": "Ana", "apellido": "Gómez", "email": "ana.gomez@example.com", "contrasena": "admin456", "rolId": 2, "fechaRegistro": "2025-02-01"}
+    1: {"id": 1, "nombre": "Juan", "apellido": "Pérez", "email": "admin@gmail.com", "contrasena": "admin123", "rolId": 1, "fechaRegistro": "2025-01-01"},
+    2: {"id": 2, "nombre": "Ana", "apellido": "Gómez", "email": "usuario@gmail.com", "contrasena": "usuario", "rolId": 2, "fechaRegistro": "2025-02-01"}
 }
 
 fake_roles_db = {
@@ -77,18 +77,18 @@ def verify_password(plain_password, stored_password):
 
 # Pydantic modelo para el login
 class LoginRequest(BaseModel):
-    username: str
+    email: str
     password: str
 
 # Ruta para iniciar sesión (Generar JWT)
 @router.post("/login")
 def login(credentials: LoginRequest):
-    user = fake_usuarios_db.get(credentials.username)
+    user = fake_usuarios_db.get(credentials.email)
     if user is None or not verify_password(credentials.password, user["password"]):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     
     # Crear el token de acceso
     access_token_expires = timedelta(minutes=60)
-    access_token = create_access_token(data={"sub": credentials.username}, expires_delta=access_token_expires)
+    access_token = create_access_token(data={"sub": credentials.email}, expires_delta=access_token_expires)
     
     return {"access_token": access_token, "token_type": "bearer"}
