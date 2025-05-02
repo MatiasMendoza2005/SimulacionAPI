@@ -72,19 +72,26 @@ def get_privilegio(privilegio_id: int):
         raise HTTPException(status_code=404, detail="Privilegio no encontrado")
     return privilegio
 
+# Función para verificar la contraseña
 def verify_password(plain_password, stored_password):
     return plain_password == stored_password    
 
 # Pydantic modelo para el login
 class LoginRequest(BaseModel):
-    email: str
+    email: str  # Cambié username por email
     password: str
 
 # Ruta para iniciar sesión (Generar JWT)
 @router.post("/login")
 def login(credentials: LoginRequest):
-    user = fake_usuarios_db.get(credentials.email)
-    if user is None or not verify_password(credentials.password, user["password"]):
+    # Buscar al usuario por su email en lugar de username
+    user = None
+    for u in fake_usuarios_db.values():
+        if u["email"] == credentials.email:
+            user = u
+            break
+    
+    if user is None or not verify_password(credentials.password, user["contrasena"]):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     
     # Crear el token de acceso
