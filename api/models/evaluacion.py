@@ -4,5 +4,5 @@ from datetime import date
 
 class Evaluacion(BaseModel):
     fecha: date
-    resultado_psicologico: str  # Ejemplo: "Estable", "En observación"
-    nivel_estrés: int  # Escala de 1 a 5
+    resultado_psicologico: str  
+    nivel_estrés: int 

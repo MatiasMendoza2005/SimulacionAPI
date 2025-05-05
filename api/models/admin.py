@@ -1,4 +1,3 @@
-# app/models/admin.py
 from pydantic import BaseModel
 
 class Admin(BaseModel):
