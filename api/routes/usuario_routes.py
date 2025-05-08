@@ -86,7 +86,7 @@ def verify_password(plain_password, stored_password):
 # Pydantic modelo para el login
 class LoginRequest(BaseModel):
     email: str
-    password: str
+    contrasena: str
 
 # Ruta para iniciar sesión (Generar JWT)
 @router.post("/login")
@@ -97,7 +97,7 @@ def login(credentials: LoginRequest):
             user = u
             break
     
-    if user is None or not verify_password(credentials.password, user["contrasena"]):
+    if user is None or not verify_password(credentials.contrasena, user["contrasena"]):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     
     access_token_expires = timedelta(minutes=60)
