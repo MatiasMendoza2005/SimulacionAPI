@@ -10,6 +10,7 @@ class Usuario(BaseModel):
     contrasena: str
     rolId: int
     fechaRegistro: str
+    ci: int
 
 class Rol(BaseModel):
     RolID: int

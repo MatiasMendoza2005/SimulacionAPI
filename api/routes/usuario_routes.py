@@ -10,13 +10,13 @@ from api.auth import create_access_token, verify_token
 router = APIRouter()
 
 fake_usuarios_db = {
-    1: {"id": 1, "nombre": "Juan", "apellido": "Pérez", "email": "admin@gmail.com", "contrasena": "admin123", "rolId": 1, "fechaRegistro": "2023-01-01"},
-    2: {"id": 2, "nombre": "Ana", "apellido": "Gómez", "email": "ana@gmail.com", "contrasena": "usuario", "rolId": 2, "fechaRegistro": "2023-02-01"},
-    3: {"id": 3, "nombre": "María", "apellido": "López", "email": "maria@gmail.com", "contrasena": "maria123", "rolId": 2, "fechaRegistro": "2023-03-01"},
-    4: {"id": 4, "nombre": "Carlos", "apellido": "García", "email": "carlos@gmail.com", "contrasena": "carlos456", "rolId": 2, "fechaRegistro": "2023-04-15"},
-    5: {"id": 5, "nombre": "Laura", "apellido": "Martínez", "email": "laura@gmail.com", "contrasena": "laura789", "rolId": 2, "fechaRegistro": "2023-05-20"},
-    6: {"id": 6, "nombre": "Pedro", "apellido": "Sánchez", "email": "pedro@gmail.com", "contrasena": "pedro012", "rolId": 2, "fechaRegistro": "2023-06-10"},
-    7: {"id": 7, "nombre": "Sofía", "apellido": "Díaz", "email": "sofia@gmail.com", "contrasena": "sofia345", "rolId": 2, "fechaRegistro": "2023-07-05"}
+    1: {"id": 1, "nombre": "Franco", "apellido": "Torrez", "email": "admin@gmail.com", "contrasena": "12345", "rolId": 1, "fechaRegistro": "2023-01-01", "ci":9782951},
+    2: {"id": 2, "nombre": "Alejandro", "apellido": "Ormachea", "email": "aoc@gmail.com", "contrasena": "12345", "rolId": 2, "fechaRegistro": "2023-02-01", "ci":9053438},
+    3: {"id": 3, "nombre": "Matías", "apellido": "Mendoza", "email": "mrmp@gmail.com", "contrasena": "12345", "rolId": 2, "fechaRegistro": "2023-03-01", "ci":9604708},
+    4: {"id": 4, "nombre": "Carlos", "apellido": "García", "email": "carlos@gmail.com", "contrasena": "carlos456", "rolId": 2, "fechaRegistro": "2023-04-15", "ci":1234567},
+    5: {"id": 5, "nombre": "Laura", "apellido": "Martínez", "email": "laura@gmail.com", "contrasena": "laura789", "rolId": 2, "fechaRegistro": "2023-05-20", "ci":7654321},
+    6: {"id": 6, "nombre": "Pedro", "apellido": "Sánchez", "email": "pedro@gmail.com", "contrasena": "pedro012", "rolId": 2, "fechaRegistro": "2023-06-10", "ci":9876543},
+    7: {"id": 7, "nombre": "Sofía", "apellido": "Díaz", "email": "sofia@gmail.com", "contrasena": "sofia345", "rolId": 2, "fechaRegistro": "2023-07-05", "ci":9782952}
 }
 
 fake_roles_db = {
@@ -85,7 +85,7 @@ def verify_password(plain_password, stored_password):
 
 # Pydantic modelo para el login
 class LoginRequest(BaseModel):
-    email: str
+    ci: int
     contrasena: str
 
 # Ruta para iniciar sesión (Generar JWT)
@@ -93,14 +93,17 @@ class LoginRequest(BaseModel):
 def login(credentials: LoginRequest):
     user = None
     for u in fake_usuarios_db.values():
-        if u["email"] == credentials.email:
+        if u["ci"] == credentials.ci:
             user = u
             break
     
-    if user is None or not verify_password(credentials.contrasena, user["contrasena"]):
-        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+    if user is None:
+        raise HTTPException(status_code=401, detail=f"Usuario con CI {credentials.ci} no encontrado")
+    if not verify_password(credentials.contrasena, user["contrasena"]):
+        raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+
     
     access_token_expires = timedelta(minutes=60)
-    access_token = create_access_token(data={"sub": credentials.email}, expires_delta=access_token_expires)
+    access_token = create_access_token(data={"sub": credentials.ci}, expires_delta=access_token_expires)
     
     return JSONResponse(content={"access_token": access_token, "token_type": "bearer"}, media_type="application/json; charset=utf-8")
