@@ -14,14 +14,17 @@ fake_usuarios_db = {
     2: {"id": 2, "nombre": "Alejandro", "apellido": "Ormachea", "email": "aoc@gmail.com", "contrasena": "12345", "rolId": 2, "fechaRegistro": "2023-02-01", "ci":9053438},
     3: {"id": 3, "nombre": "Matías", "apellido": "Mendoza", "email": "mrmp@gmail.com", "contrasena": "12345", "rolId": 2, "fechaRegistro": "2023-03-01", "ci":9604708},
     4: {"id": 4, "nombre": "Carlos", "apellido": "García", "email": "carlos@gmail.com", "contrasena": "carlos456", "rolId": 2, "fechaRegistro": "2023-04-15", "ci":1234567},
-    5: {"id": 5, "nombre": "Laura", "apellido": "Martínez", "email": "laura@gmail.com", "contrasena": "laura789", "rolId": 2, "fechaRegistro": "2023-05-20", "ci":7654321},
-    6: {"id": 6, "nombre": "Pedro", "apellido": "Sánchez", "email": "pedro@gmail.com", "contrasena": "pedro012", "rolId": 2, "fechaRegistro": "2023-06-10", "ci":9876543},
-    7: {"id": 7, "nombre": "Sofía", "apellido": "Díaz", "email": "sofia@gmail.com", "contrasena": "sofia345", "rolId": 2, "fechaRegistro": "2023-07-05", "ci":9782952}
+    5: {"id": 5, "nombre": "Laura", "apellido": "Martínez", "email": "laura@gmail.com", "contrasena": "laura789", "rolId": 3, "fechaRegistro": "2023-05-20", "ci":7654321},
+    6: {"id": 6, "nombre": "Pedro", "apellido": "Sánchez", "email": "pedro@gmail.com", "contrasena": "pedro012", "rolId": 3, "fechaRegistro": "2023-06-10", "ci":9876543},
+    7: {"id": 7, "nombre": "Sofía", "apellido": "Díaz", "email": "sofia@gmail.com", "contrasena": "sofia345", "rolId": 2, "fechaRegistro": "2023-07-05", "ci":9782952},
+    8: {"id": 8, "nombre": "Juana", "apellido": "Cortez", "email": "juana@gmail.com", "contrasena": "juana123", "rolId": 3, "fechaRegistro": "2023-08-15", "ci":1122334},
+
 }
 
 fake_roles_db = {
     1: {"RolID": 1, "NombreRol": "Admin"},
-    2: {"RolID": 2, "NombreRol": "Voluntario"}
+    2: {"RolID": 2, "NombreRol": "Voluntario"},
+    3: {"RolID": 3, "NombreRol": "Comunario"}
 }
 
 fake_privilegios_db = {
@@ -65,6 +68,17 @@ def get_rol(rol_id: int):
     if not rol:
         raise HTTPException(status_code=404, detail="Rol no encontrado")
     return JSONResponse(content=rol, media_type="application/json; charset=utf-8")
+
+@router.get("/usuarios_con_roles")
+def get_usuarios_con_roles(token: str = Depends(get_current_user)):
+    usuarios_con_roles = []
+    for usuario in fake_usuarios_db.values():
+        rol = fake_roles_db.get(usuario["rolId"], {}).get("NombreRol", "Desconocido")
+        usuario_con_rol = usuario.copy()
+        usuario_con_rol["rol"] = rol
+        usuarios_con_roles.append(usuario_con_rol)
+    return JSONResponse(content=usuarios_con_roles, media_type="application/json; charset=utf-8")
+
 
 # Ruta para obtener todos los privilegios
 @router.get("/privilegios")
